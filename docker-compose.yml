@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ghcr.io/your-user/gati-backend:latest
+    container_name: gati_backend
+    restart: always
+    environment:
+      - ConnectionStrings__DefaultConnection=${DB_CONNECTION_STRING}
+      - Jwt__SecretKey=${JWT_SECRET_KEY}
+      - Jwt__ExpireMinutes=240
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - Smtp__Host=smtp.gmail.com
+      - Smtp__Port=587
+      - Smtp__User=${SMTP_FROM}
+      - Smtp__Password=${SMTP_PASSWORD}
+      - Smtp__FromName=Gestão de Ativos de TI
+      - Smtp__From=${SMTP_FROM}
+    ports:
+      - "5001:8080"
+    volumes:
+      - static_data:/app/static
+
+  frontend:
+    image: ghcr.io/your-user/gati-frontend:latest
+    container_name: gati_frontend
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+volumes:
+  static_data:

@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends unixodbc tdsodbc curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN printf '[FreeTDS]\nDescription=FreeTDS Driver\nDriver=/usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so\n' \
+    > /etc/odbcinst.ini
+
+ENTRYPOINT ["dotnet", "watch", "run", "--project", "GATI.API.csproj", "--urls", "http://0.0.0.0:8080"]

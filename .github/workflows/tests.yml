@@ -1,0 +1,79 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Backend: dotnet test
+  # ─────────────────────────────────────────────
+  test-backend:
+    name: Backend Tests (.NET 8)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore backend-csharp/GATI.Tests/GATI.Tests.csproj
+
+      - name: Build (verifica erros de compilação)
+        run: dotnet build backend-csharp/GATI.Tests/GATI.Tests.csproj --no-restore --configuration Release
+
+      - name: Run tests with coverage
+        run: |
+          dotnet test backend-csharp/GATI.Tests/GATI.Tests.csproj \
+            --no-build \
+            --configuration Release \
+            --verbosity normal \
+            --collect:"XPlat Code Coverage" \
+            --results-directory ./coverage-backend
+
+      - name: Upload coverage report (backend)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-backend
+          path: ./coverage-backend
+
+  # ─────────────────────────────────────────────
+  # Frontend: npm test
+  # ─────────────────────────────────────────────
+  test-frontend:
+    name: Frontend Tests (Jest + RTL)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run tests with coverage
+        working-directory: frontend
+        run: npm run test:coverage -- --ci --forceExit
+
+      - name: Upload coverage report (frontend)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-frontend
+          path: frontend/coverage
