@@ -10,7 +10,8 @@
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-0f172a?style=for-the-badge&logo=githubactions&logoColor=4ade80)
 
 > Sistema web para controle, rastreabilidade e gestão de patrimônio tecnológico. Desenvolvido para substituir planilhas e processos manuais por um fluxo digital completo: do cadastro do equipamento até a geração e envio do termo de responsabilidade por e-mail.
-
+> 
+> ⚠️ Este é o repositório público do projeto. A versão em produção roda em ambiente privado com CI/CD ativo, integração ao SQL Server institucional e deploy via Docker + Portainer em servidor Linux.
 ---
 
 ## Visão Geral
