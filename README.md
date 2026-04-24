@@ -1,8 +1,15 @@
-# GATI — Gestão de Ativos de TI
+# 🖥️ Gestão de Ativos de TI
 
-[![Tests](https://github.com/your-user/GATI/actions/workflows/tests.yml/badge.svg)](https://github.com/your-user/GATI/actions/workflows/tests.yml)
+[![Tests](https://github.com/Airton659/GATI/actions/workflows/tests.yml/badge.svg)](https://github.com/Airton659/GATI/actions/workflows/tests.yml)
 
-Sistema web para controle, rastreabilidade e gestão de patrimônio tecnológico. Desenvolvido para substituir planilhas e processos manuais por um fluxo digital completo: do cadastro do equipamento até a geração e envio do termo de responsabilidade por e-mail.
+![C#](https://img.shields.io/badge/C%23%20.NET%208-0f172a?style=for-the-badge&logo=dotnet&logoColor=a78bfa)
+![React](https://img.shields.io/badge/React%2019-0f172a?style=for-the-badge&logo=react&logoColor=61dafb)
+![TypeScript](https://img.shields.io/badge/TypeScript-0f172a?style=for-the-badge&logo=typescript&logoColor=38bdf8)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-0f172a?style=for-the-badge&logo=microsoftsqlserver&logoColor=f87171)
+![Docker](https://img.shields.io/badge/Docker-0f172a?style=for-the-badge&logo=docker&logoColor=38bdf8)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-0f172a?style=for-the-badge&logo=githubactions&logoColor=4ade80)
+
+> Sistema web para controle, rastreabilidade e gestão de patrimônio tecnológico. Desenvolvido para substituir planilhas e processos manuais por um fluxo digital completo: do cadastro do equipamento até a geração e envio do termo de responsabilidade por e-mail.
 
 ---
 
@@ -69,6 +76,7 @@ O GATI centraliza toda a gestão de ativos de TI em uma única plataforma, cobri
 - Administração de acessos por perfil
 
 ### Relatórios (PDF exportável)
+
 | Relatório | Descrição |
 |---|---|
 | Inventário Geral | Fotografia completa do patrimônio, agrupada por localização |
@@ -168,7 +176,6 @@ Utiliza as imagens publicadas no GitHub Container Registry. Consulte o [`DEPLOY.
 ### Backend — xUnit + Moq + FluentAssertions
 
 ```bash
-# Diretamente pelo host (requer .NET SDK 8 instalado)
 dotnet test backend-csharp/GATI.Tests/GATI.Tests.csproj --verbosity normal
 
 # Com relatório de cobertura
@@ -212,7 +219,7 @@ O workflow `.github/workflows/tests.yml` executa os testes automaticamente a cad
 
 ## CI/CD
 
-O pipeline de CI/CD é gerenciado via **GitHub Actions**. A cada push na branch `main`:
+A cada push na branch `main`:
 1. **Testes** são executados (backend + frontend) — workflow `tests.yml`
 2. **Imagens Docker** são construídas e publicadas no GitHub Container Registry — workflow `deploy.yml`
 
@@ -220,7 +227,7 @@ O pipeline de CI/CD é gerenciado via **GitHub Actions**. A cada push na branch 
 
 ## Banco de Dados
 
-O sistema utiliza **Microsoft SQL Server** via driver ODBC (FreeTDS). Configure a connection string no arquivo `.env` ou diretamente no `appsettings.json` (não versionar com credenciais reais).
+SQL Server via driver ODBC (FreeTDS). Configure a connection string no `.env` ou no `appsettings.json` (não versionar com credenciais reais).
 
 ---
 
